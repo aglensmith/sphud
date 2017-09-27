@@ -1,17 +1,21 @@
 {
   "manifest_version": 2,
-  "name": "extension-name",
-  "description": "extension-description",
+  "name": "sphud",
+  "description": "Super Powerful Heads Up Display for AmeriCommerce / Spark Pay",
   "version": "1.0",
   "omnibox": { "keyword" : "t" },
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
-  "background": {
-      "scripts": ["background.js", "helpers.js"],
-      "persistent": false
-  },
+    "content_scripts": [
+      {
+      "matches": ["https://*/*", "http://*/*"],
+      "css": ["style.css"],
+      "js": ["jquery.js", "sphud.js"],
+      "run_at": "document_idle"
+      }
+    ],
   "commands": {
     "command-name": {
       "suggested_key": {
