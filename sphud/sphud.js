@@ -38,46 +38,9 @@ var isSP = typeof windowVariables.AC == 'object';
 var ldOn = typeof liveDesignOptions == 'object';
 var pathname = windowVariables.pathname;
 var isAdmin = isAdminPage(pathname);
-var ldo = liveDesignOptions;
-var id = ldo.entityId;
 
-//Map page type to their edit page URL
-var entityUrls = {
-    "Category": "/store/admin/products/categorylist.aspx?ovu=/store/admin/products/CategoryEdit.aspx%3FcatID%3D" + id + "&ovw=0&ovn=0",
-    "ProductDetails": "/store/admin/products/listproducts.aspx?ovu=/store/admin/Products/ProductEdit/General.aspx%3FID%3D" + id + "&ovw=0&ovn=1",
-    "CMS": "/store/admin/content/pagelist.aspx?ovu=/store/admin/content/PageEdit.aspx%3FID%3D" + id + "&ovw=0&ovn=0",
-    "Manufacturer": "/store/admin/products/manufacturerlist.aspx?ovu=/store/admin/products/ManufacturerEdit.aspx%3FmfgID%3D" + id + "&ovw=0&ovn=0",
-    "BlogPost": "/store/admin/content/blogs/blogpostlist.aspx?ovu=/store/admin/content/blogs/BlogPostEdit.aspx%3FID%3D" + id + "&ovw=0&ovn=0",
-    "BlogRoll": "/store/admin/content/blogs/bloglist.aspx?ovu=/store/admin/content/blogs/BlogEdit.aspx%3FID%3D" + id + "&ovw=0&ovn=0",
-    "Default": "/store/admin/themes/v2/HtmlEditor.aspx?edit=theme%2fDefault&themeid=" + ldo.themeId + "&layoutid=",
-    "ShoppingCart": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fShoppingCart&themeid=" + ldo.themeId + "&layoutid="
-};
 
-var entityUrl = entityUrls[ldo.pageType];
 
-//Map page type to layout URLs
-var layoutUrls = {
-    "Category": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fCategory&themeid=" + ldo.themeId + "&layoutid=",
-    "ProductDetails": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fProductDetails&themeid=" + ldo.themeId + "&layoutid=",
-    "CMS": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fCMS&themeid=" + ldo.themeId + "&layoutid=",
-    "Manufacturer": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fManufacturer&themeid=" + ldo.themeId + "&layoutid=",
-    "BlogPost": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fBlogPost&themeid=" + ldo.themeId + "&layoutid=",
-    "BlogRoll": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fBlogRoll&themeid=" + ldo.themeId + "&layoutid=",
-    "Default": "/store/admin/themes/v2/HtmlEditor.aspx?edit=theme%2fDefault&themeid=" + ldo.themeId + "&layoutid=",
-    "ShoppingCart": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fShoppingCart&themeid=" + ldo.themeId + "&layoutid="
-};
-
-var entityType = {
-    "Category": "Cat ID",
-    "ProductDetails": "Prod ID",
-    "Manufacturer": "Man ID",
-    "BlogPost": "Post ID",
-    "BlogRoll": "Blog ID",
-    "Default": "Homepage ID",
-    "ShoppingCart": "ShoppingCart ID"
-};
-
-var layoutUrl = layoutUrls[ldo.pageType];
 
 function determineSiteType() {
 
@@ -168,6 +131,47 @@ function insertSphud(siteType) {
         };
 
         if (siteType == "ldOn") {
+
+            var ldo = liveDesignOptions;
+            var id = ldo.entityId;
+
+            //Map page type to their edit page URL
+            var entityUrls = {
+                "Category": "/store/admin/products/categorylist.aspx?ovu=/store/admin/products/CategoryEdit.aspx%3FcatID%3D" + id + "&ovw=0&ovn=0",
+                "ProductDetails": "/store/admin/products/listproducts.aspx?ovu=/store/admin/Products/ProductEdit/General.aspx%3FID%3D" + id + "&ovw=0&ovn=1",
+                "CMS": "/store/admin/content/pagelist.aspx?ovu=/store/admin/content/PageEdit.aspx%3FID%3D" + id + "&ovw=0&ovn=0",
+                "Manufacturer": "/store/admin/products/manufacturerlist.aspx?ovu=/store/admin/products/ManufacturerEdit.aspx%3FmfgID%3D" + id + "&ovw=0&ovn=0",
+                "BlogPost": "/store/admin/content/blogs/blogpostlist.aspx?ovu=/store/admin/content/blogs/BlogPostEdit.aspx%3FID%3D" + id + "&ovw=0&ovn=0",
+                "BlogRoll": "/store/admin/content/blogs/bloglist.aspx?ovu=/store/admin/content/blogs/BlogEdit.aspx%3FID%3D" + id + "&ovw=0&ovn=0",
+                "Default": "/store/admin/themes/v2/HtmlEditor.aspx?edit=theme%2fDefault&themeid=" + ldo.themeId + "&layoutid=",
+                "ShoppingCart": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fShoppingCart&themeid=" + ldo.themeId + "&layoutid="
+            };
+
+            var entityUrl = entityUrls[ldo.pageType];
+
+            //Map page type to layout URLs
+            var layoutUrls = {
+                "Category": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fCategory&themeid=" + ldo.themeId + "&layoutid=",
+                "ProductDetails": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fProductDetails&themeid=" + ldo.themeId + "&layoutid=",
+                "CMS": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fCMS&themeid=" + ldo.themeId + "&layoutid=",
+                "Manufacturer": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fManufacturer&themeid=" + ldo.themeId + "&layoutid=",
+                "BlogPost": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fBlogPost&themeid=" + ldo.themeId + "&layoutid=",
+                "BlogRoll": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fBlogRoll&themeid=" + ldo.themeId + "&layoutid=",
+                "Default": "/store/admin/themes/v2/HtmlEditor.aspx?edit=theme%2fDefault&themeid=" + ldo.themeId + "&layoutid=",
+                "ShoppingCart": "/store/admin/themes/v2/HtmlEditor.aspx?edit=Pages%2fShoppingCart&themeid=" + ldo.themeId + "&layoutid="
+            };
+
+            var entityType = {
+                "Category": "Cat ID",
+                "ProductDetails": "Prod ID",
+                "Manufacturer": "Man ID",
+                "BlogPost": "Post ID",
+                "BlogRoll": "Blog ID",
+                "Default": "Homepage ID",
+                "ShoppingCart": "ShoppingCart ID"
+            };
+
+            var layoutUrl = layoutUrls[ldo.pageType];
 
             //Links
             var editTheme = "/store/admin/themes/v2/Default.aspx?ThemeID=" + ldo.themeId + "&edit=theme%2fGlobalSettings";
