@@ -14,7 +14,7 @@
     "content_scripts": [
       {
       "matches": ["https://*/*", "http://*/*"],
-      "css": ["style.css"],
+      "css": ["style.min.css"],
       "js": ["jquery.js", "sphud.js"],
       "run_at": "document_idle"
       }
