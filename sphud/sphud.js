@@ -1,3 +1,5 @@
+
+// hack for getting liveDesignOptops object from window into extension execution env.
 function retrieveWindowVariables(variables) {
     var ret = {};
     var scriptContent = "";
@@ -26,6 +28,7 @@ function retrieveWindowVariables(variables) {
     return ret;
 }
 
+// returns true if /store/admin is in url path
 function isAdminPage (path) {
     var reg = new RegExp('/store/admin/');
     return reg.test(path);
@@ -39,9 +42,7 @@ var ldOn = typeof liveDesignOptions == 'object';
 var pathname = windowVariables.pathname;
 var isAdmin = isAdminPage(pathname);
 
-
-
-
+// check to see if page is admin, live design on, livedesign off, or not AC
 function determineSiteType() {
 
     if (!isSP) {
@@ -72,6 +73,7 @@ function getSiteMonitorData() {
     return obj;
 }
 
+// inserts the markup
 function insertSphud(siteType) {
 
     var colOne = $('<div id="sphud-col-one" class="col-md-3" style="list-style: none;"></div>');
