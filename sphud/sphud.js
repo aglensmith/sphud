@@ -47,12 +47,13 @@ function determineSiteType() {
 
     if (!isSP) {
         siteType = "notSP";
-    } else if (isAdmin) {
-        siteType = "admin";
     } else if (isSP && !ldOn && !isAdmin) {
         siteType = "ldOff";
     } else if (ldOn) {
         siteType = "ldOn";
+    }
+    else if (isAdmin) {
+        siteType = "admin";
     }
     return siteType;
 }
@@ -75,6 +76,7 @@ function getSiteMonitorData() {
 
 // inserts the markup
 function insertSphud(siteType) {
+    console.log(siteType)
 
     var colOne = $('<div id="sphud-col-one" class="col-md-3" style="list-style: none;"></div>');
     var colTwo = $('<div id="sphud-col-two" class="col-md-3" style="list-style: none;"></div>');
@@ -125,20 +127,12 @@ function insertSphud(siteType) {
 
         };
 
-        if (siteType == "ldOff" && !isAdmin) {
-            console.log(isAdmin);
+        if (siteType == "ldOff") {
             $('#sphud-ul-one').append('<li><span class="ldo-label">Version:</span> <span class="ldo-data">' + siteMonitor["Code Version"] + '</span></li>');
             $('#sphud-ul-two').append('<li><span class="ldo-label">Domain:</span> <span class="ldo-data">' + siteMonitor["DomainName"] + '</span></li>');
             $('#sphud-ul-three').append('<li><span class="ldo-label">Store:</span> <span class="ldo-data">' + siteMonitor["Store Name"] + '</span></li>');
             $('#sphud-ul-four').append('<li><span class="ldo-label">Machine:</span> <span class="ldo-data">' + siteMonitor["Machine Name"] + '</span> | <a  id="close-sphud" href="#sphud">X</a></li>');
             $('#sphud').append('<a id="sphud-login" href="' + window.location.pathname + '?livedesign=on">Sign In to Live Design</a>')
-        };
-
-        if (siteType == "ldOff" && isAdmin) {
-            $('#sphud-ul-one').append('<li><span class="ldo-label">Version:</span> <span class="ldo-data">' + siteMonitor["Code Version"] + '</span></li>');
-            $('#sphud-ul-two').append('<li><span class="ldo-label">Domain:</span> <span class="ldo-data">' + siteMonitor["DomainName"] + '</span></li>');
-            $('#sphud-ul-three').append('<li><span class="ldo-label">Store:</span> <span class="ldo-data">' + siteMonitor["Store Name"] + '</span></li>');
-            $('#sphud-ul-four').append('<li><span class="ldo-label">Machine:</span> <span class="ldo-data">' + siteMonitor["Machine Name"] + '</span> | <a  id="close-sphud" href="#sphud">X</a></li>');
         };
 
         if (siteType == "ldOn") {
