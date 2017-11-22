@@ -1,3 +1,5 @@
+
+// hack for getting liveDesignOptops object from window into extension execution env.
 function retrieveWindowVariables(variables) {
     var ret = {};
     var scriptContent = "";
@@ -26,9 +28,9 @@ function retrieveWindowVariables(variables) {
     return ret;
 }
 
-function isAdminPage (path) {
-    var reg = new RegExp('/store/admin/');
-    return reg.test(path);
+
+function isAdminPage () {
+    return $("script[src*='/store/admin/']").length > 1;
 }
 
 var windowVariables = retrieveWindowVariables(["liveDesignOptions", "AC"]);
@@ -37,21 +39,21 @@ var siteType = 'TBD';
 var isSP = typeof windowVariables.AC == 'object';
 var ldOn = typeof liveDesignOptions == 'object';
 var pathname = windowVariables.pathname;
-var isAdmin = isAdminPage(pathname);
+console.log(pathname);
+var isAdmin = isAdminPage();
 
-
-
-
+// check to see if page is admin, live design on, livedesign off, or not AC
 function determineSiteType() {
 
     if (!isSP) {
         siteType = "notSP";
-    } else if (isAdmin) {
-        siteType = "admin";
     } else if (isSP && !ldOn && !isAdmin) {
         siteType = "ldOff";
     } else if (ldOn) {
         siteType = "ldOn";
+    }
+    else if (isAdmin) {
+        siteType = "admin";
     }
     return siteType;
 }
@@ -72,7 +74,9 @@ function getSiteMonitorData() {
     return obj;
 }
 
+// inserts the markup
 function insertSphud(siteType) {
+    console.log(siteType)
 
     var colOne = $('<div id="sphud-col-one" class="col-md-3" style="list-style: none;"></div>');
     var colTwo = $('<div id="sphud-col-two" class="col-md-3" style="list-style: none;"></div>');
@@ -88,11 +92,12 @@ function insertSphud(siteType) {
         var siteMonitor = getSiteMonitorData();
 
         //Add SPHUD to site's HTML and insert 4 columns
-        $('html').append('<div id="sphud"></div>');
-        $('#sphud').append(colOne);
-        $('#sphud').append(colTwo);
-        $('#sphud').append(colThree);
-        $('#sphud').append(colFour);
+        $('body').append('<div id="sphud"></div>');
+        $('#sphud').append('<div class="row"></div>');
+        $('#sphud > div.row').append(colOne);
+        $('#sphud > div.row').append(colTwo);
+        $('#sphud > div.row').append(colThree);
+        $('#sphud > div.row').append(colFour);
 
         if (siteType == "admin") {
 
