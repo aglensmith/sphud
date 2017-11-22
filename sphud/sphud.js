@@ -28,10 +28,9 @@ function retrieveWindowVariables(variables) {
     return ret;
 }
 
-// returns true if /store/admin is in url path
-function isAdminPage (path) {
-    var reg = new RegExp('/store/admin/');
-    return reg.test(path);
+
+function isAdminPage () {
+    return $("script[src*='/store/admin/']").length > 1;
 }
 
 var windowVariables = retrieveWindowVariables(["liveDesignOptions", "AC"]);
@@ -40,7 +39,8 @@ var siteType = 'TBD';
 var isSP = typeof windowVariables.AC == 'object';
 var ldOn = typeof liveDesignOptions == 'object';
 var pathname = windowVariables.pathname;
-var isAdmin = isAdminPage(pathname);
+console.log(pathname);
+var isAdmin = isAdminPage();
 
 // check to see if page is admin, live design on, livedesign off, or not AC
 function determineSiteType() {
@@ -90,11 +90,12 @@ function insertSphud(siteType) {
         var siteMonitor = getSiteMonitorData();
 
         //Add SPHUD to site's HTML and insert 4 columns
-        $('html').append('<div id="sphud"></div>');
-        $('#sphud').append(colOne);
-        $('#sphud').append(colTwo);
-        $('#sphud').append(colThree);
-        $('#sphud').append(colFour);
+        $('body').append('<div id="sphud"></div>');
+        $('#sphud').append('<div class="row"></div>');
+        $('#sphud > div.row').append(colOne);
+        $('#sphud > div.row').append(colTwo);
+        $('#sphud > div.row').append(colThree);
+        $('#sphud > div.row').append(colFour);
 
         if (siteType == "admin") {
 
@@ -124,12 +125,20 @@ function insertSphud(siteType) {
 
         };
 
-        if (siteType == "ldOff") {
+        if (siteType == "ldOff" && !isAdmin) {
+            console.log(isAdmin);
             $('#sphud-ul-one').append('<li><span class="ldo-label">Version:</span> <span class="ldo-data">' + siteMonitor["Code Version"] + '</span></li>');
             $('#sphud-ul-two').append('<li><span class="ldo-label">Domain:</span> <span class="ldo-data">' + siteMonitor["DomainName"] + '</span></li>');
             $('#sphud-ul-three').append('<li><span class="ldo-label">Store:</span> <span class="ldo-data">' + siteMonitor["Store Name"] + '</span></li>');
             $('#sphud-ul-four').append('<li><span class="ldo-label">Machine:</span> <span class="ldo-data">' + siteMonitor["Machine Name"] + '</span> | <a  id="close-sphud" href="#sphud">X</a></li>');
             $('#sphud').append('<a id="sphud-login" href="' + window.location.pathname + '?livedesign=on">Sign In to Live Design</a>')
+        };
+
+        if (siteType == "ldOff" && isAdmin) {
+            $('#sphud-ul-one').append('<li><span class="ldo-label">Version:</span> <span class="ldo-data">' + siteMonitor["Code Version"] + '</span></li>');
+            $('#sphud-ul-two').append('<li><span class="ldo-label">Domain:</span> <span class="ldo-data">' + siteMonitor["DomainName"] + '</span></li>');
+            $('#sphud-ul-three').append('<li><span class="ldo-label">Store:</span> <span class="ldo-data">' + siteMonitor["Store Name"] + '</span></li>');
+            $('#sphud-ul-four').append('<li><span class="ldo-label">Machine:</span> <span class="ldo-data">' + siteMonitor["Machine Name"] + '</span> | <a  id="close-sphud" href="#sphud">X</a></li>');
         };
 
         if (siteType == "ldOn") {
