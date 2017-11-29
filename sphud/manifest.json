@@ -31,7 +31,8 @@
   },
   "permissions": [
     "tabs",
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
   "optional_permissions": ["activeTab"]
 }

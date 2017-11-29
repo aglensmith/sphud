@@ -218,5 +218,9 @@ function insertSphud(siteType) {
     }
 }
 
-siteType = determineSiteType();
-insertSphud(siteType);
+chrome.storage.local.get('sphudEnabled', function (items) {
+    if (items.sphudEnabled) {
+        siteType = determineSiteType();
+        insertSphud(siteType);
+    }
+});
